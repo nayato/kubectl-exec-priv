@@ -1,0 +1,13 @@
+name: "exec-priv"
+shortDesc: "Exec command as privileged"
+longDesc: >
+  Execute command as privileged in a container.
+example: ""
+command: "./exec-priv.sh"
+flags:
+  - name: "container"
+    shorthand: "c"
+    desc: "Container name. If omitted, the first container in the pod will be chosen"
+  - name: "name"
+    shorthand: "o"
+    desc: "Name for new exec-priv pod. If omitted it will use exec-priv + $POD"

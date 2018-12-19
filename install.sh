@@ -2,5 +2,5 @@
 
 mkdir -p ~/.kube/plugins
 
-cp -r exec-user ~/.kube/plugins/
-chmod +x ~/.kube/plugins/exec-user
+cp -r exec-priv ~/.kube/plugins/
+chmod +x ~/.kube/plugins/exec-priv

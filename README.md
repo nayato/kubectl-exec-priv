@@ -1,8 +1,10 @@
-# kubectl-exec-user
+# kubectl-exec-priv
 
 ## Overview
 
-Exec as a specified user into a Kubernetes container.
+Fork of [kubectl-exec-user](https://github.com/mikelorant/kubectl-exec-user) with a tweak to use `--privileged` instead of overriding user.
+
+Execute command as privileged in a Kubernetes container.
 
 This works by creating a pod on the same node as the container and mounting the docker socket into this container. The container runs the docker application which has access to the hosts containers and is able to use the exec command with the user flag.
 
@@ -10,44 +12,41 @@ This works by creating a pod on the same node as the container and mounting the 
 
 Run the install script to copy the plugin to `~/.kube/plugins`.
 
-```
+```shell
 ./install.sh
 ```
 
 ## Usage
 
-```
+```shell
 kubectl plugin exec-user $POD $COMMAND
 ```
 
 If the command is not specified, falls back to the `sh` command.
 
-**Flags**
+### Flags
 
 | Name      | Shorthand | Default   | Usage                                                                     |
 |-----------|-----------|---------- |---------------------------------------------------------------------------|
-| user      | -u        | root      | Username or UID.                                                          |
 | container | -c        |           | Container name. If omitted, the first container in the pod will be chosen |
-| name      | -o        | exec-user | Name for new exec-user pod to avoid `pods "exec-user" already exists`     |                           | 
+| name      | -o        | exec-priv | Name for new exec-priv pod to avoid `pods "exec-priv" already exists`     |                           |  
 
 ## Examples
 
-Exec into first container in `example` pod with `sh` as user `root`.
-```
-kubectl plugin exec-user example
+Exec `sh` in first container in `example` pod as privileged.
+
+```shell
+kubectl plugin exec-priv example
 ```
 
-Exec into first container in `example` pod with `bash` as user `root`.
-```
-kubectl plugin exec-user example bash
+Exec `bash` in first container in `example` pod as privileged.
+
+```shell
+kubectl plugin exec-priv example bash
 ```
 
-Exec into first container in `example` pod with `bash` as user `admin`.
-```
-kubectl plugin exec-user -u admin example-pod bash
-```
+Exec `bash` in `second` container in `example` pod as privileged.
 
-Exec into `second` container in `example` pod with `bash` as user `admin`.
-```
-kubectl plugin exec-user -c second -u admin example-pod bash
+```shell
+kubectl plugin exec-priv -c second -u admin example-pod bash
 ```
