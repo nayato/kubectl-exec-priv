@@ -19,7 +19,7 @@ Run the install script to copy the plugin to `~/.kube/plugins`.
 ## Usage
 
 ```shell
-kubectl plugin exec-user $POD $COMMAND
+exec-priv $POD $COMMAND [$CONTAINER]
 ```
 
 If the command is not specified, falls back to the `sh` command.
